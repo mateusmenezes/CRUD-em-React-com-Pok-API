@@ -1,6 +1,10 @@
 import { useState, useEffect } from "react";
 import api from "../../services/Api";
 import "./home.css";
+import { toast } from "react-toastify";
+
+
+
 
 function Home() {
     const [pokemons, setPokemons] = useState([]);
@@ -31,8 +35,6 @@ function Home() {
 
 
     function savePokemon(pokemon) {
-        console.log(pokemon);
-        
         let mylist = JSON.parse(localStorage.getItem("@pokelist"))
         mylist = mylist == null ? [] : mylist;
 
@@ -40,11 +42,15 @@ function Home() {
             return save.id === pokemon.id;
         })
         if (hasPokemon) {
-            alert("pokemon ja esta na lista de favoritos");
+            toast.error("pokemon ja está na lista de favoritos!", {
+                toastId: 'unique-id'
+            });
         } else {
             mylist.push(pokemon);
             localStorage.setItem("@pokelist", JSON.stringify(mylist));
-            alert("Pokemon salvo na lista");
+            toast.success("pokemon salvo!", {
+                toastId: 'unique-id'
+            });
         }
 
     }
@@ -53,7 +59,7 @@ function Home() {
     if (loading) {
         
         return (
-            <div>
+            <div className="load-pokemons">
                 <h1>Carregando pokemons...</h1>
             </div>
         );
@@ -68,10 +74,10 @@ function Home() {
                         <article key={index}>
                             <img src={pokemon.img} alt={pokemon.nome} />
                             <h1>{pokemon.nome} {pokemon.id}</h1>
-                            <button onClick={() => savePokemon(pokemon)}>Adicionar aos favoritos</button>
+                            <button className="btn-favorito" 
+                            onClick={() => savePokemon(pokemon)}>Adicionar aos favoritos</button>
                         </article>
-                    )
-
+                    );
                 })
                 }
             </div>
