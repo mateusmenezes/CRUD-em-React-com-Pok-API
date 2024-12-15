@@ -30,8 +30,8 @@ Este projeto é uma aplicação web desenvolvida em React que permite ao usuári
 
 1. **Clonar o repositório**
 
-        $ git clone 
-        $ cd 
+        $ git clone https://github.com/mateusmenezes/CRUD-em-React-com-Pok-API.git
+        $ cd CRUD-em-React-com-Pok-API
 2. **Instalar Dependências**
 
         $ npm install
@@ -72,4 +72,4 @@ Define as seguintes rotas:
 
 - deletePokemon: Remove um Pokémon da lista de favoritos e atualiza o localStorage.
 
-- editPokemon: Atualiza o nome do Pokémon da lista de favoritos e atualiza o localStorage.
+- editPokemonName: Atualiza o nome do Pokémon da lista de favoritos e atualiza o localStorage.
