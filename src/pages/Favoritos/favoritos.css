@@ -33,7 +33,7 @@ article button:hover{
     background-color: red;
     color: #fff;
 }
-.btn-delete:hover {
+.btn-delete:hover, .btn-cancel:hover {
     border: 2px solid red;
     background-color: #fff;
     color: red;
@@ -45,4 +45,49 @@ article button:hover{
     align-items: center;
     justify-content: center;
     height: 60vh;
+}
+
+.edit-popup {
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 3rem;
+}
+.edit-popup h2{
+    margin-bottom: 2rem;
+}
+
+.btn-save {
+    margin: 0.5rem 0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-color: green;
+    color: #fff;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+.btn-save:hover {
+    border: 2px solid green;
+    background-color: #fff;
+    color: green;
+
+}
+
+.btn-cancel {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-color: red;
+    color: #fff;
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+.edit-popup input{
+    height: 2rem;
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 0 5px;
 }

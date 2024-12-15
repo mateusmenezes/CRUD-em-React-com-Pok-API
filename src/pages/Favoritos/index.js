@@ -4,6 +4,8 @@ import "./favoritos.css";
 
 function Favoritos() {
     const [pokemons, setPokemons] = useState([]);
+    const [editPokemon, setEditPokemon] = useState(null); // Estado para gerenciar o pokemon sendo editado
+    const [newName, setNewName] = useState(""); // Estado para o novo nome
 
     useEffect(() => {
         const mylist = JSON.parse(localStorage.getItem("@pokelist"));
@@ -24,10 +26,49 @@ function Favoritos() {
         });
     }
 
+    function editPokemonName(id) {
+
+        const pokemon = pokemons.find(item => item.id === id);
+        setEditPokemon(pokemon);
+        setNewName(pokemon.nome);
+    }
+
+    function saveEditedName() {
+        const updatedPokemons = pokemons.map(pokemon => {
+            if (pokemon.id === editPokemon.id) {
+                pokemon.nome = newName; // Atualiza o nome do Pokémon
+            }
+            return pokemon;
+        });
+
+        setPokemons(updatedPokemons);
+        localStorage.setItem("@pokelist", JSON.stringify(updatedPokemons));
+
+        setEditPokemon(null);
+        setNewName("");
+        toast.success("Nome do Pokémon atualizado!", {
+            toastId: 'unique-id'
+        });
+    }
+
+
     return (
         < div className="container" >
             <div className="pokemons">
                 <h1>Minha lista de favoritos</h1>
+                {editPokemon && (
+                    <div className="edit-popup">
+                        <h2>Editar Pokémon</h2>
+                        <input
+                            className="input-edit"
+                            type="text"
+                            value={newName}
+                            onChange={(e) => setNewName(e.target.value)}
+                        />
+                        <button className="btn-save" onClick={saveEditedName}>Salvar</button>
+                        <button className="btn-cancel" onClick={() => setEditPokemon(null)}>Cancelar</button>
+                    </div>
+                )}
                 {
                     pokemons.length === 0 &&
                     <div className="info">
@@ -39,8 +80,9 @@ function Favoritos() {
                         <article key={index}>
                             <img src={pokemon.img} alt={pokemon.nome} />
                             <h1>{pokemon.nome} {pokemon.id}</h1>
-                            <button className="btn-edit">Editar</button>
+                            <button className="btn-edit" onClick={() => editPokemonName(pokemon.id)}>Editar</button>
                             <button className="btn-delete" onClick={() => deletePokemon(pokemon.id)}>Deletar</button>
+
                         </article>
                     );
                 })
